@@ -10,8 +10,12 @@ public class SideScrollingCamera : MonoBehaviour
 
     private void LateUpdate()
     {
+        // FIX: Jika player hilang, kamera tidak error
+        if (trackedObject == null)
+            return;
+
         Vector3 cameraPosition = transform.position;
-        cameraPosition.x = Mathf.Max(cameraPosition.x, trackedObject.position.x);
+        cameraPosition.x = trackedObject.position.x;
         transform.position = cameraPosition;
     }
 
@@ -21,5 +25,4 @@ public class SideScrollingCamera : MonoBehaviour
         cameraPosition.y = underground ? undergroundHeight : height;
         transform.position = cameraPosition;
     }
-
 }
